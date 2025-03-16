@@ -60,7 +60,6 @@ resource "argocd_application" "base" {
       "application" = "istio-base"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
   timeouts {
@@ -129,7 +128,6 @@ resource "argocd_application" "istiod" {
       "application" = "istio-istiod"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
 
@@ -198,7 +196,6 @@ resource "argocd_application" "cni" {
       "application" = "istio-cni"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
   timeouts {
@@ -259,7 +256,6 @@ resource "argocd_application" "ztunnel" {
       "application" = "istio-ztunnel"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
   timeouts {
@@ -321,7 +317,6 @@ resource "argocd_application" "gateway" {
       "application" = "istio-ingressgateway"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
   timeouts {
@@ -387,7 +382,6 @@ resource "argocd_application" "kiali" {
       "application" = "kiali"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
-    finalizers = ["resources-finalizer.argocd.argoproj.io"]
   }
 
   timeouts {
