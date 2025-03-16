@@ -6,6 +6,11 @@ locals {
     cni = {
       profile = "ambient"
     }
+    ingress-gateway = {
+      service = {
+        type = "ClusterIP"
+      }
+    }
     kiali-operator = {
       cr = {
         create = true
