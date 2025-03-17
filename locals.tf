@@ -2,6 +2,12 @@ locals {
   helm_values = [{
     istiod = {
       profile = "ambient"
+      env = {
+        PILOT_JWT_PUB_KEY_REFRESH_INTERVAL = "1m"
+        ENABLE_DEBUG_ON_HTTP               = false
+        ENABLE_NATIVE_SIDECARS             = true
+      }
+
       meshConfig = {
         accessLogFile = "/dev/stdout"
         defaultConfig = {
