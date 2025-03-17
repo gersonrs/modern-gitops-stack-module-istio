@@ -16,7 +16,7 @@ locals {
           probes   = 3
           time     = "10s"
         }
-        trustDomain = cluster.local
+        trustDomain = "cluster.local"
         extensionProviders = [{
           envoyExtAuthzHttp = {
             headersToDownstreamOnDeny = [
