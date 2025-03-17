@@ -6,7 +6,7 @@ locals {
     cni = {
       profile = "ambient"
     }
-    istio-gateway = {
+    gateway = {
       service = {
         type = "ClusterIP"
       }
