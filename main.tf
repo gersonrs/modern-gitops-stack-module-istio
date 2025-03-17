@@ -331,7 +331,7 @@ resource "argocd_application" "gateway" {
 
     source {
       repo_url        = var.project_source_repo
-      path            = "charts/istio-gateway"
+      path            = "charts/gateway"
       target_revision = var.target_revision
       helm {
         values = data.utils_deep_merge_yaml.values.output
