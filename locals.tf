@@ -6,7 +6,7 @@ locals {
     cni = {
       profile = "ambient"
     }
-    ingress-gateway = {
+    istio-gateway = {
       service = {
         type = "ClusterIP"
       }
