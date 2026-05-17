@@ -1,4 +1,4 @@
-{{- if .Values.gateway_config }}
+{{- if and .Values.gateway_config .Values.gateway_config.domain (ne .Values.gateway_config.domain "") }}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

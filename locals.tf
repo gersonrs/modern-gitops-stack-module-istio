@@ -1,5 +1,5 @@
 locals {
-  domain = var.base_domain != "" ? "${var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}." : ""}${var.base_domain}" : "*"
+  domain = var.base_domain != "" ? "${var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}.": ""}${var.base_domain}" : ""
 
   helm_values = [{
     istiod = {

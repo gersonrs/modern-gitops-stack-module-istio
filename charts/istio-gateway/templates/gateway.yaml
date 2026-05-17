@@ -12,14 +12,18 @@ spec:
     - name: http
       port: 80
       protocol: HTTP
+      {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "*") }}
       hostname: "*.{{ .Values.gateway_config.domain }}"
+      {{- end }}
       allowedRoutes:
         namespaces:
           from: All
     - name: https
       port: 443
       protocol: HTTPS
+      {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "*") }}
       hostname: "*.{{ .Values.gateway_config.domain }}"
+      {{- end }}
       tls:
         mode: Terminate
         certificateRefs:
