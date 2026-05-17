@@ -42,12 +42,16 @@ resource "null_resource" "check_crd" {
   depends_on = [resource.null_resource.dependencies]
   provisioner "local-exec" {
     command = <<EOT
-      if kubectl get crd gateways.gateway.networking.k8s.io &>/dev/null; then
+      if kubectl get crd gateways.gateway.networking.k8s.io >/dev/null 2>&1; then
         echo "CRD já instalado."
       else
         echo "CRD não encontrado. Instalando..."
-        kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.0" | kubectl apply -f -
+        kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.4.0" | kubectl apply -f -
       fi
+
+      kubectl wait --for=condition=Established --timeout=120s crd/gatewayclasses.gateway.networking.k8s.io
+      kubectl wait --for=condition=Established --timeout=120s crd/gateways.gateway.networking.k8s.io
+      kubectl wait --for=condition=Established --timeout=120s crd/httproutes.gateway.networking.k8s.io
     EOT
   }
 }
