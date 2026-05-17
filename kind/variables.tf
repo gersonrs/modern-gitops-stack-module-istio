@@ -25,12 +25,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "base_domain" {
-  description = "Base domain of the cluster. Value used for the Gateway hostname wildcard. If empty, '*' is used as the hostname."
-  type        = string
-  default     = ""
-}
-
 variable "subdomain" {
   description = "Subdomain of the cluster. Value used for the ingress' URL of the application."
   type        = string
@@ -99,7 +93,3 @@ variable "dependency_ids" {
   type        = map(string)
   default     = {}
 }
-
-#######################
-## Module variables
-#######################

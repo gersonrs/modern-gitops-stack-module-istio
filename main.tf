@@ -380,7 +380,7 @@ resource "null_resource" "this" {
 data "kubernetes_service" "istio" {
   metadata {
     name      = "istio-ingressgateway"
-    namespace = var.namespace
+    namespace = "istio-ingress"
   }
 
   depends_on = [
