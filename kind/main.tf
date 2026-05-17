@@ -22,7 +22,7 @@ module "istio" {
 
 data "kubernetes_service" "istio_gateway" {
   metadata {
-    name      = replace(format("istio-ingressgateway%s", module.istio.id), module.istio.id, "")
+    name      = replace(format("istio-gateway-istio%s", module.istio.id), module.istio.id, "")
     namespace = "istio-ingress"
   }
 }
