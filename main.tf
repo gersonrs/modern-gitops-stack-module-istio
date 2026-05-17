@@ -40,6 +40,11 @@ resource "argocd_project" "this" {
 
 resource "null_resource" "check_crd" {
   depends_on = [resource.null_resource.dependencies]
+
+  triggers = {
+    gateway_api_crds_version = "v1.4.0"
+  }
+
   provisioner "local-exec" {
     command = <<EOT
       if kubectl get crd gateways.gateway.networking.k8s.io >/dev/null 2>&1; then
