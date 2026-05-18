@@ -388,7 +388,7 @@ resource "null_resource" "this" {
 
 data "kubernetes_service" "istio" {
   metadata {
-    name      = "istio-ingressgateway"
+    name      = "istio-gateway-istio"
     namespace = "istio-ingress"
   }
 

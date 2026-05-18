@@ -1,9 +1,5 @@
 apiVersion: v2
-dependencies:
-  - name: gateway
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: "1.24.2"
 description: |
-  This chart installs istio
+  This chart installs the Istio Gateway API Gateway resource
 name: istio-gateway
 version: "0"
