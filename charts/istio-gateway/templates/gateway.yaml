@@ -4,26 +4,27 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: {{ .Values.gateway_config.name | default "istio-gateway" }}
+  {{- if and .Values.gateway_config.domain .Values.gateway_config.cluster_issuer (ne .Values.gateway_config.domain "") }}
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.gateway_config.cluster_issuer | default "selfsigned-issuer" }}
+    cert-manager.io/cluster-issuer: {{ .Values.gateway_config.cluster_issuer }}
+  {{- end }}
 spec:
   gatewayClassName: istio
   listeners:
     - name: http
       port: 80
       protocol: HTTP
-      {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "*") }}
+      {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "") (ne .Values.gateway_config.domain "*") }}
       hostname: "*.{{ .Values.gateway_config.domain }}"
       {{- end }}
       allowedRoutes:
         namespaces:
           from: All
+    {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "") (ne .Values.gateway_config.domain "*") }}
     - name: https
       port: 443
       protocol: HTTPS
-      {{- if and .Values.gateway_config.domain (ne .Values.gateway_config.domain "*") }}
       hostname: "*.{{ .Values.gateway_config.domain }}"
-      {{- end }}
       tls:
         mode: Terminate
         certificateRefs:
@@ -31,4 +32,5 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    {{- end }}
 {{- end }}
