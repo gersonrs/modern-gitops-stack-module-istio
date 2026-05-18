@@ -26,3 +26,37 @@ data "kubernetes_service" "istio_gateway" {
     namespace = "istio-ingress"
   }
 }
+
+resource "null_resource" "istio_gateway_certificate" {
+  triggers = {
+    ip             = local.gateway_ip
+    cluster_issuer = var.cluster_issuer
+    domain         = local.gateway_domain
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+until kubectl get clusterissuer '${var.cluster_issuer}' 2>/dev/null; do
+  echo "Aguardando ClusterIssuer ${var.cluster_issuer}..."
+  sleep 5
+done
+kubectl apply -f - <<'CERT'
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: istio-gateway-tls
+  namespace: istio-ingress
+spec:
+  secretName: istio-gateway-tls
+  issuerRef:
+    name: ${var.cluster_issuer}
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.${local.gateway_domain}"
+CERT
+kubectl wait --for=condition=Ready certificate/istio-gateway-tls -n istio-ingress --timeout=120s
+EOT
+  }
+
+  depends_on = [data.kubernetes_service.istio_gateway]
+}
