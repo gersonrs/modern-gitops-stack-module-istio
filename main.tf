@@ -50,7 +50,7 @@ resource "null_resource" "check_crd" {
       KUBE_CONTEXT = var.kubectl_context
     }
     command = <<EOT
-      KUBECTL_ARGS="${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
+      KUBECTL_ARGS="$${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
       if kubectl $KUBECTL_ARGS get crd gateways.gateway.networking.k8s.io >/dev/null 2>&1; then
         echo "CRD já instalado."
       else
@@ -392,7 +392,7 @@ resource "null_resource" "wait_for_gateway_service" {
       KUBE_CONTEXT = var.kubectl_context
     }
     command = <<-EOT
-      KUBECTL_ARGS="${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
+      KUBECTL_ARGS="$${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
       echo "Aguardando Service istio-gateway-istio ficar disponível..."
       until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
         echo "Service ainda não existe. Aguardando 5s..."
