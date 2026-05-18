@@ -380,10 +380,28 @@ resource "argocd_application" "gateway" {
   ]
 }
 
+resource "null_resource" "wait_for_gateway_service" {
+  depends_on = [resource.argocd_application.gateway]
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      echo "Aguardando Service istio-gateway-istio ficar disponível..."
+      until kubectl get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
+        echo "Service ainda não existe. Aguardando 5s..."
+        sleep 5
+      done
+      until kubectl get service istio-gateway-istio -n istio-ingress \
+        -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null | grep -q '.'; do
+        echo "Service sem IP externo ainda. Aguardando 5s..."
+        sleep 5
+      done
+      echo "Service istio-gateway-istio pronto."
+    EOT
+  }
+}
+
 resource "null_resource" "this" {
-  depends_on = [
-    resource.argocd_application.gateway,
-  ]
+  depends_on = [resource.null_resource.wait_for_gateway_service]
 }
 
 data "kubernetes_service" "istio" {
@@ -392,7 +410,5 @@ data "kubernetes_service" "istio" {
     namespace = "istio-ingress"
   }
 
-  depends_on = [
-    resource.argocd_application.gateway,
-  ]
+  depends_on = [resource.null_resource.wait_for_gateway_service]
 }
