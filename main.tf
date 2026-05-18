@@ -46,17 +46,21 @@ resource "null_resource" "check_crd" {
   }
 
   provisioner "local-exec" {
+    environment = {
+      KUBE_CONTEXT = var.kubectl_context
+    }
     command = <<EOT
-      if kubectl get crd gateways.gateway.networking.k8s.io >/dev/null 2>&1; then
+      KUBECTL_ARGS="${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
+      if kubectl $KUBECTL_ARGS get crd gateways.gateway.networking.k8s.io >/dev/null 2>&1; then
         echo "CRD já instalado."
       else
         echo "CRD não encontrado. Instalando..."
-        kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.4.0" | kubectl apply -f -
+        kubectl $KUBECTL_ARGS kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.4.0" | kubectl $KUBECTL_ARGS apply -f -
       fi
 
-      kubectl wait --for=condition=Established --timeout=120s crd/gatewayclasses.gateway.networking.k8s.io
-      kubectl wait --for=condition=Established --timeout=120s crd/gateways.gateway.networking.k8s.io
-      kubectl wait --for=condition=Established --timeout=120s crd/httproutes.gateway.networking.k8s.io
+      kubectl $KUBECTL_ARGS wait --for=condition=Established --timeout=120s crd/gatewayclasses.gateway.networking.k8s.io
+      kubectl $KUBECTL_ARGS wait --for=condition=Established --timeout=120s crd/gateways.gateway.networking.k8s.io
+      kubectl $KUBECTL_ARGS wait --for=condition=Established --timeout=120s crd/httproutes.gateway.networking.k8s.io
     EOT
   }
 }
@@ -384,13 +388,17 @@ resource "null_resource" "wait_for_gateway_service" {
   depends_on = [resource.argocd_application.gateway]
 
   provisioner "local-exec" {
+    environment = {
+      KUBE_CONTEXT = var.kubectl_context
+    }
     command = <<-EOT
+      KUBECTL_ARGS="${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
       echo "Aguardando Service istio-gateway-istio ficar disponível..."
-      until kubectl get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
+      until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
         echo "Service ainda não existe. Aguardando 5s..."
         sleep 5
       done
-      until kubectl get service istio-gateway-istio -n istio-ingress \
+      until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress \
         -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null | grep -q '.'; do
         echo "Service sem IP externo ainda. Aguardando 5s..."
         sleep 5

@@ -93,3 +93,9 @@ variable "dependency_ids" {
   type        = map(string)
   default     = {}
 }
+
+variable "kubectl_context" {
+  description = "Kubernetes context name to use for kubectl commands. Defaults to 'kind-<cluster_name>' when empty, which is the standard context name created by Kind."
+  type        = string
+  default     = ""
+}

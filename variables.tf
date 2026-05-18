@@ -100,6 +100,12 @@ variable "dependency_ids" {
   default     = {}
 }
 
+variable "kubectl_context" {
+  description = "Kubernetes context name to use for kubectl commands in local-exec provisioners. When empty, the current context in the kubeconfig file is used. Each cloud-specific submodule should set this to the appropriate context (e.g., 'kind-mycluster' for Kind, the cluster ARN for EKS, etc.)."
+  type        = string
+  default     = ""
+}
+
 #######################
 ## Module variables
 #######################

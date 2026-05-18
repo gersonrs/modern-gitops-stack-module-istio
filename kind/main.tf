@@ -1,11 +1,12 @@
 module "istio" {
   source = "../"
 
-  cluster_name   = var.cluster_name
-  subdomain      = var.subdomain
-  cluster_issuer = var.cluster_issuer
-  argocd_project = var.argocd_project
-  argocd_labels  = var.argocd_labels
+  cluster_name    = var.cluster_name
+  subdomain       = var.subdomain
+  cluster_issuer  = var.cluster_issuer
+  argocd_project  = var.argocd_project
+  argocd_labels   = var.argocd_labels
+  kubectl_context = local.kubectl_context
 
   project_source_repo    = var.project_source_repo
   namespace              = var.namespace
@@ -35,12 +36,15 @@ resource "null_resource" "istio_gateway_certificate" {
   }
 
   provisioner "local-exec" {
+    environment = {
+      KUBE_CONTEXT = local.kubectl_context
+    }
     command = <<-EOT
-until kubectl get clusterissuer '${var.cluster_issuer}' 2>/dev/null; do
+until kubectl --context=$KUBE_CONTEXT get clusterissuer '${var.cluster_issuer}' 2>/dev/null; do
   echo "Aguardando ClusterIssuer ${var.cluster_issuer}..."
   sleep 5
 done
-kubectl apply -f - <<'CERT'
+kubectl --context=$KUBE_CONTEXT apply -f - <<'CERT'
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -54,7 +58,7 @@ spec:
   dnsNames:
     - "*.${local.gateway_domain}"
 CERT
-kubectl wait --for=condition=Ready certificate/istio-gateway-tls -n istio-ingress --timeout=120s
+kubectl --context=$KUBE_CONTEXT wait --for=condition=Ready certificate/istio-gateway-tls -n istio-ingress --timeout=120s
 EOT
   }
 

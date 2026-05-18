@@ -3,6 +3,7 @@ locals {
     istiod = {}
   }]
 
-  gateway_ip     = data.kubernetes_service.istio_gateway.status[0].load_balancer[0].ingress[0].ip
-  gateway_domain = "${trimprefix(var.subdomain, ".")}.${replace(local.gateway_ip, ".", "-")}.nip.io"
+  gateway_ip      = data.kubernetes_service.istio_gateway.status[0].load_balancer[0].ingress[0].ip
+  gateway_domain  = "${trimprefix(var.subdomain, ".")}.${replace(local.gateway_ip, ".", "-")}.nip.io"
+  kubectl_context = var.kubectl_context != "" ? var.kubectl_context : "kind-${var.cluster_name}"
 }
