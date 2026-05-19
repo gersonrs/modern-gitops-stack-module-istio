@@ -15,6 +15,7 @@ module "istio" {
   target_revision        = var.target_revision
   enable_service_monitor = var.enable_service_monitor
   app_autosync           = var.app_autosync
+  gateway                = true
 
   helm_values = concat(local.helm_values, var.helm_values)
 
