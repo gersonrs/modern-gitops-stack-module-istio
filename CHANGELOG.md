@@ -1,5 +1,69 @@
 # Changelog
 
+## [1.1.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.0.0...v1.1.0) (2026-05-19)
+
+
+### 🚀 New Features
+
+* add Gateway API support with HTTPRoute, Certificate, and kind submodule ([50390ca](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/50390caf790e4ae3b86b209afcc2d9df344e8b91))
+* add global HTTP to HTTPS redirect HTTPRoute at gateway level ([292e3a4](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/292e3a457d9c0c494967a20b2ae621178ef0aacf))
+* add kiali ([327ad5a](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/327ad5ad8b359f61c72d73d1e66c8ed07d82aed3))
+* add kiali ([43c491f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/43c491ff2b5822e8214dff77db8db5cc69f1c421))
+* add kiali ([2adf046](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2adf04682a7df992df07b3e1e989d912b9e06afd))
+* add kiali ([c52374e](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/c52374eec982cb3c863d08615c6e50ae25ed8416))
+* add kubectl_context variable for cloud-agnostic kubectl execution ([fb2a56e](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/fb2a56e2d5506b3693a6f4d6c6214576466a4f85))
+* add new ingress gateway resources ([fd66fb8](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/fd66fb8fdbd46a5e351d094c8f20b94ab6f856d5))
+* adjust project ([fa6d036](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/fa6d03687ea198e8bd3bd1dcb5a3c10f2d71a9d3))
+* config kiali ([7a3ed39](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/7a3ed39a86c8c85662c3aa8c188875629d5ded8c))
+* config kiali ([2980971](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/298097183ae5a4f55c62e67c8bd0258bf4230702))
+* enable HTTPS listener on Gateway and auto-create TLS certificate in kind ([5305cef](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/5305cef71b65399cfb9a5df8eff36413ccbb57e6))
+* update istio to 1.24.3 ([12d81a8](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/12d81a83afcee54ee977a6438389280556e558b0))
+* update Istio to 1.24.3, add Kiali and new ingress gateway resources ([5e27480](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/5e274805ab5103ba0e4910a2e2e8c72bc936f41b))
+
+
+### 🔥 Bug Fixes
+
+* add ignore difference to fix outofsync ([4a511cc](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/4a511ccaccb04442831a40176116dac0e778a62d))
+* add ignore difference to fix outofsync ([d233dd6](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/d233dd61e7471b2f2d644501bb1e8bc852dc948f))
+* add ignore difference to fix outofsync ([4e9bcfd](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/4e9bcfdd4726b32eefc04d3e41d77c6d028271d7))
+* argocd provider version ([0aeae84](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/0aeae849d6e128d236d784daf8273c35c44431cc))
+* avoid invalid '*.*' Gateway hostname when base_domain is empty ([2c3c9a0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2c3c9a0170916aaa8ff78051587a53591d3ea8f0))
+* chart name ([9ced5d3](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/9ced5d3de43eea2bb14a70092d25c9a5756b78f7))
+* chart name ([b5102c9](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/b5102c955475b35d921cc497b88737ed276b2425))
+* chart name ([39063b6](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/39063b684fe46f27ce80476ed3979fec46579aaf))
+* escape bash parameter expansion in Terraform heredoc ([4eed61d](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/4eed61dcb03ac33a3797154e35e2f1544ff9e887))
+* fix templates folder name ([a063260](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a063260f264691e1aaa4a7691c1f35b6a3e12472))
+* install Gateway API CRDs reliably on clean clusters ([a94ca3d](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a94ca3da4ad639d8f87584bb520559e2e3fc3da6))
+* make https listener conditional on domain being set to avoid missing TLS secret ([7ca7180](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/7ca7180feebc495edbc42b97df5a49cf279678a6))
+* read istio-gateway-istio service IP for nip.io base_domain in kind submodule ([e1dfcc8](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/e1dfcc863dc0fa57caa279ef7d279ba6e44b705c))
+* remove finalizers ([0ad79a6](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/0ad79a6c3fe7b793bfb853c924471676276dae3f))
+* remove istio/gateway Helm dependency - use Gateway API only (single gateway at 172.18.0.101) ([b746e8a](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/b746e8a12a909079eaa1b66666d0072579dbcbe4))
+* rerun Gateway API CRD bootstrap on version changes ([2aa87ed](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2aa87edf530879abdabe25905dfdcfd9e9725e4e))
+* resolve merge conflicts keeping kiali, wait_for_gateway_service and gateway_config ([d6c8d1d](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/d6c8d1dffc539be96492d8f28e281c3a951c98ee))
+* update release-please workflow to use PROJECT_APP_PRIVATE_KEY secret ([01286c0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/01286c09206283390b6e36c352da96db33620671))
+* update release-please workflow to use PROJECT_APP_PRIVATE_KEY secret ([33a138b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/33a138b531d4cd2a1efc9e8cab0acceb3a444a0f))
+* wait for istio-gateway-istio service to have external IP before reading it ([5bee71b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/5bee71bb9c44eb005cc24e431c592a34f324186e))
+
+
+### 🎨 Code Style
+
+* fix terraform fmt alignment in locals.tf ([3544119](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/3544119de9901d4285dc8830ea41c1b0aaad691f))
+
+
+### ⚙️ Chores
+
+* remove istio/gateway chart lock and tgz dependency ([ba1a844](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ba1a8445e4728ad7f379c844dea64b5c966743bf))
+
+
+### ⌨️ Code Refactoring
+
+* adjust istio code ([1bd6546](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/1bd65464e53f7c04cdeb95c4f80b76aff57dbd24))
+* adjust istio code ([edbc708](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/edbc7088cddd594144ce6510e2b5021182ed0b07))
+* adjust istio configmap ([334680a](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/334680a823c82492a34acc3a534a93b84406c8a9))
+* adjust istio configmap ([3b31ab4](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/3b31ab4651a8d73f13dd9daa7691edf4c1f45c68))
+* recofigure istio istiod configmap ([b2b1b53](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/b2b1b5341e436041162b0a85ade81cbb2dda04a6))
+* remove namespace ([e28c1ee](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/e28c1eebaef6e9c74be33ce591ea68ef78d5f2b3))
+
 ## [2.4.0](https://github.com/GersonRS/modern-gitops-stack-module-minio/compare/v2.3.0...v2.4.0) (2024-05-01)
 
 
