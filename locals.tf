@@ -1,4 +1,6 @@
 locals {
+  domain = var.base_domain != "" ? "${var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}." : ""}${var.base_domain}" : ""
+
   helm_values = [{
     istiod = {
       profile = "ambient"
@@ -65,32 +67,6 @@ locals {
           }
           deployment = {
             cluster_wide_access = true
-            # discovery_selectors = {
-            #   default = [
-            #     {
-            #       matchLabels = {
-            #         "kubernetes.io/metadata.name" = "default"
-            #       }
-            #     },
-            #     {
-            #       matchLabels = {
-            #         region = "east"
-            #       },
-            #       matchExpressions = [
-            #         {
-            #           key      = "app"
-            #           operator = "In"
-            #           values   = ["ticketing"]
-            #         },
-            #         {
-            #           key      = "color"
-            #           operator = "In"
-            #           values   = ["blue"]
-            #         }
-            #       ]
-            #     }
-            #   ]
-            # }
             view_only_mode = false
           }
           server = {
@@ -136,6 +112,11 @@ locals {
           }
         }
       }
+    }
+    gateway_config = {
+      name           = "istio-gateway"
+      domain         = local.domain
+      cluster_issuer = var.cluster_issuer
     }
   }]
 }

@@ -25,12 +25,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "base_domain" {
-  description = "Base domain of the cluster. Value used for the Gateway hostname wildcard. If empty, '*' is used as the hostname."
-  type        = string
-  default     = ""
-}
-
 variable "subdomain" {
   description = "Subdomain of the cluster. Value used for the ingress' URL of the application."
   type        = string
@@ -101,23 +95,7 @@ variable "dependency_ids" {
 }
 
 variable "kubectl_context" {
-  description = "Kubernetes context name to use for kubectl commands in local-exec provisioners. When empty, the current context in the kubeconfig file is used. Each cloud-specific submodule should set this to the appropriate context (e.g., 'kind-mycluster' for Kind, the cluster ARN for EKS, etc.)."
+  description = "Kubernetes context name to use for kubectl commands. Defaults to 'kind-<cluster_name>' when empty, which is the standard context name created by Kind."
   type        = string
   default     = ""
-}
-
-#######################
-## Module variables
-#######################
-
-variable "gateway" {
-  description = "Enable Gateway in the istio module."
-  type        = bool
-  default     = false
-}
-
-variable "kiali" {
-  description = "Enable Kiali in the istio module."
-  type        = bool
-  default     = true
 }
