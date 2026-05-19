@@ -67,7 +67,7 @@ locals {
           }
           deployment = {
             cluster_wide_access = true
-            view_only_mode = false
+            view_only_mode      = false
           }
           server = {
             web_root = "/kiali"
