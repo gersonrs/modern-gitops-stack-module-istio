@@ -51,10 +51,11 @@ locals {
     cni = {
       profile = "ambient"
     }
-    gateway = {
-      service = {
-        type = "ClusterIP"
-      }
+    httproute = {
+      enabled           = true
+      host              = "kiali.${local.domain}"
+      gateway_name      = "istio-gateway"
+      gateway_namespace = "istio-ingress"
     }
     kiali-operator = {
       cr = {
@@ -79,7 +80,7 @@ locals {
             grafana = {
               enabled      = true
               internal_url = "http://kube-prometheus-stack-grafana.kube-prometheus-stack.svc.cluster.local:80/"
-              external_url = "https://grafana.apps.kind.172-19-0-101.nip.io/"
+              external_url = "https://grafana.${local.domain}/"
               dashboards = [
                 {
                   name = "Istio Service Dashboard"
