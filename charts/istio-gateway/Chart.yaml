@@ -1,5 +1,0 @@
-apiVersion: v2
-description: |
-  This chart installs the Istio Gateway API Gateway resource
-name: istio-gateway
-version: "0"
