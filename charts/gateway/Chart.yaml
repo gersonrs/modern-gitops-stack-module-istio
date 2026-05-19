@@ -1,9 +1,5 @@
 apiVersion: v2
-dependencies:
-  - name: gateway
-    repository: https://istio-release.storage.googleapis.com/charts
-    version: "1.24.3"
 description: |
-  This chart installs istio
+  This chart installs the Kubernetes Gateway API resources for Istio
 name: gateway
 version: "0"
