@@ -25,6 +25,12 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "base_domain" {
+  description = "Base domain passed to the root Istio module. Keep empty to use wildcard hostnames in the Gateway listeners."
+  type        = string
+  default     = ""
+}
+
 variable "subdomain" {
   description = "Subdomain of the cluster. Value used for the ingress' URL of the application."
   type        = string
