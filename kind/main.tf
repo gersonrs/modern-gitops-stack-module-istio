@@ -2,6 +2,7 @@ module "istio" {
   source = "../"
 
   cluster_name    = var.cluster_name
+  base_domain     = var.base_domain
   subdomain       = var.subdomain
   cluster_issuer  = var.cluster_issuer
   argocd_project  = var.argocd_project
