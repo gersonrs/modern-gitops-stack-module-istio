@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.1](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.1.0...v1.1.1) (2026-05-20)
+
+
+### 🔥 Bug Fixes
+
+* add global HTTP to HTTPS redirect route to active gateway chart ([6ada2ab](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/6ada2ab19c9508aae5774f6c80d914f9f0b744d5))
+* add kiali HTTPRoute, fix hardcoded Grafana URL, remove obsolete gateway service values ([#19](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/19)) ([d73455f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/d73455f31c4170607e1d53c7aca109feff6afd3b))
+* allow base_domain passthrough in kind wrapper module ([1bce562](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/1bce5621673e39fdd2387c25b88e4a4eb950a366))
+* allow base_domain passthrough in kind wrapper module ([a93fa9f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a93fa9f8f17f13137d084738b4e6505660173a0f))
+* enable gateway deployment in kind submodule ([#15](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/15)) ([f622f15](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/f622f15ba7618c9b1da91fe94cf20d281bd2e687))
+* remove redundant istio/gateway helm subchart, use Gateway API only ([#18](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/18)) ([08ace60](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/08ace609c51232c8ceeff9d94dd7dbf48bddc7d8))
+* replace old Istio Gateway with Kubernetes Gateway API resource ([#17](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/17)) ([ca6b0c7](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ca6b0c760314650f9bfee9d8acc1766bb31ca0fd))
+
+
+### ⚙️ Chores
+
+* disable kiali by default ([#20](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/20)) ([22e840f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/22e840f84420406753f85b10f8bfd38ad7a603d2))
+* remove unused legacy istio-gateway chart directory ([17c4f99](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/17c4f9943bb9643a0e7ede1a5696f7022b7cae59))
+* remove unused legacy istio-gateway chart directory ([ac3fa80](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ac3fa80209a3cae2aeba8d7ebd6b45d6e1737647))
+* remove unused legacy istio-gateway chart directory ([6af29cb](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/6af29cb738da8d216214ed6619332f1ca27533b5))
+
 ## [1.1.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.0.0...v1.1.0) (2026-05-19)
 
 
