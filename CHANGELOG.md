@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.1.2...v1.2.0) (2026-07-06)
+
+
+### 🚀 New Features
+
+* replace local-exec crd/cert with declarative argocd app and kubernetes manifest ([0478b39](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/0478b3972f7fa94c620f1214d13b4beafecf513f))
+* replace local-exec crd/cert with declarative argocd app and kubernetes manifest ([ee6912e](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ee6912eb8af185be3fbaf925253012f2bd92def8))
+
+
+### ⚙️ Chores
+
+* trigger release ([6360df3](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/6360df3fd8491f7cda1b2bf73d287a0e6f512c37))
+* trigger release ([7813ae1](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/7813ae197811851eb66d117df0543a4f3295831a))
+
 ## [1.1.2](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.1.1...v1.1.2) (2026-07-06)
 
 
