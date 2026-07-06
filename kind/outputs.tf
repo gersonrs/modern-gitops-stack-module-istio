@@ -5,8 +5,8 @@ output "id" {
 
 output "external_ip" {
   description = "External IP address of the Istio ingress gateway LoadBalancer service."
-  value       = data.kubernetes_service.istio_gateway.status.0.load_balancer.0.ingress.0.ip
-  depends_on  = [null_resource.istio_gateway_certificate]
+  value       = try(data.kubernetes_service.istio_gateway.status.0.load_balancer.0.ingress.0.ip, "127.0.0.1")
+  depends_on  = [kubernetes_manifest.istio_gateway_certificate]
 }
 
 output "gateway_name" {

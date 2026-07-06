@@ -115,9 +115,3 @@ variable "gateway" {
   type        = bool
   default     = false
 }
-
-variable "kiali" {
-  description = "Enable Kiali in the istio module."
-  type        = bool
-  default     = false
-}
