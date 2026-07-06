@@ -419,34 +419,6 @@ resource "argocd_application" "gateway" {
   ]
 }
 
-resource "null_resource" "wait_for_gateway_service" {
-  depends_on = [resource.argocd_application.gateway]
-
-  provisioner "local-exec" {
-    environment = {
-      KUBE_CONTEXT = var.kubectl_context
-    }
-    command = <<-EOT
-      KUBECTL_ARGS="$${KUBE_CONTEXT:+--context=$KUBE_CONTEXT}"
-      echo "Aguardando Service istio-gateway-istio ficar disponível..."
-      until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
-        echo "Service ainda não existe. Aguardando 5s..."
-        sleep 5
-      done
-      echo "Service istio-gateway-istio pronto."
-    EOT
-  }
-}
-
 resource "null_resource" "this" {
-  depends_on = [resource.null_resource.wait_for_gateway_service]
-}
-
-data "kubernetes_service" "istio" {
-  metadata {
-    name      = "istio-gateway-istio"
-    namespace = "istio-ingress"
-  }
-
-  depends_on = [resource.null_resource.wait_for_gateway_service]
+  depends_on = [argocd_application.gateway]
 }
