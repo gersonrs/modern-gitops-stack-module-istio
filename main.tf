@@ -386,71 +386,6 @@ resource "argocd_application" "gateway" {
   ]
 }
 
-resource "argocd_application" "kiali" {
-  count = var.kiali ? 1 : 0
-  metadata {
-    name      = var.destination_cluster != "in-cluster" ? "kiali-${var.destination_cluster}" : "kiali"
-    namespace = var.argocd_namespace
-    labels = merge({
-      "application" = "kiali"
-      "cluster"     = var.destination_cluster
-    }, var.argocd_labels)
-  }
-
-  timeouts {
-    create = "15m"
-    delete = "15m"
-  }
-
-  wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
-
-  spec {
-    project = var.argocd_project == null ? argocd_project.this[0].metadata.0.name : var.argocd_project
-
-    source {
-      repo_url        = var.project_source_repo
-      path            = "charts/kiali-operator"
-      target_revision = var.target_revision
-      helm {
-        values = data.utils_deep_merge_yaml.values.output
-      }
-    }
-
-    destination {
-      name      = var.destination_cluster
-      namespace = var.namespace
-    }
-
-    sync_policy {
-      dynamic "automated" {
-        for_each = toset(var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? [] : [var.app_autosync])
-        content {
-          prune       = automated.value.prune
-          self_heal   = automated.value.self_heal
-          allow_empty = automated.value.allow_empty
-        }
-      }
-
-      retry {
-        backoff {
-          duration     = "20s"
-          max_duration = "2m"
-          factor       = "2"
-        }
-        limit = "5"
-      }
-
-      sync_options = [
-        "CreateNamespace=true",
-      ]
-    }
-  }
-
-  depends_on = [
-    resource.argocd_application.ztunnel
-  ]
-}
-
 resource "null_resource" "wait_for_gateway_service" {
   depends_on = [resource.argocd_application.gateway]
 
@@ -463,11 +398,6 @@ resource "null_resource" "wait_for_gateway_service" {
       echo "Aguardando Service istio-gateway-istio ficar disponível..."
       until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress 2>/dev/null; do
         echo "Service ainda não existe. Aguardando 5s..."
-        sleep 5
-      done
-      until kubectl $KUBECTL_ARGS get service istio-gateway-istio -n istio-ingress \
-        -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null | grep -q '.'; do
-        echo "Service sem IP externo ainda. Aguardando 5s..."
         sleep 5
       done
       echo "Service istio-gateway-istio pronto."

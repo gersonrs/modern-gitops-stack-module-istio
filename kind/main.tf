@@ -32,7 +32,6 @@ data "kubernetes_service" "istio_gateway" {
 
 resource "null_resource" "istio_gateway_certificate" {
   triggers = {
-    ip             = local.gateway_ip
     cluster_issuer = var.cluster_issuer
     domain         = local.gateway_domain
   }
@@ -64,5 +63,5 @@ kubectl --context=$KUBE_CONTEXT wait --for=condition=Ready certificate/istio-gat
 EOT
   }
 
-  depends_on = [data.kubernetes_service.istio_gateway]
+  depends_on = [module.istio]
 }
