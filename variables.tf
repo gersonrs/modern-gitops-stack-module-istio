@@ -109,3 +109,19 @@ variable "gateway" {
   type        = bool
   default     = false
 }
+
+variable "cluster" {
+  description = "Kubeconfig blocks to configure Terraform providers."
+  type = object({
+    host                   = string
+    client_certificate     = string
+    client_key             = string
+    cluster_ca_certificate = string
+  })
+  default = {
+    host                   = null
+    client_certificate     = null
+    client_key             = null
+    cluster_ca_certificate = null
+  }
+}
