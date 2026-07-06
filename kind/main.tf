@@ -1,13 +1,12 @@
 module "istio" {
   source = "../"
 
-  cluster_name    = var.cluster_name
-  base_domain     = var.base_domain
-  subdomain       = var.subdomain
-  cluster_issuer  = var.cluster_issuer
-  argocd_project  = var.argocd_project
-  argocd_labels   = var.argocd_labels
-  kubectl_context = local.kubectl_context
+  cluster_name   = var.cluster_name
+  base_domain    = var.base_domain
+  subdomain      = var.subdomain
+  cluster_issuer = var.cluster_issuer
+  argocd_project = var.argocd_project
+  argocd_labels  = var.argocd_labels
 
   project_source_repo    = var.project_source_repo
   namespace              = var.namespace
@@ -23,13 +22,29 @@ module "istio" {
   dependency_ids = var.dependency_ids
 }
 
-data "kubernetes_service" "istio_gateway" {
-  metadata {
-    name      = replace(format("istio-gateway-istio%s", module.istio.id), module.istio.id, "")
-    namespace = "istio-ingress"
+resource "kubernetes_manifest" "wait_for_istio_gateway" {
+  depends_on = [module.istio]
+
+  manifest = {
+    apiVersion = "v1"
+    kind       = "Service"
+    metadata = {
+      name      = "istio-gateway-istio"
+      namespace = "istio-ingress"
+    }
   }
 
-  depends_on = [module.istio]
+  # Força o Terraform a apenas ler o recurso existente e esperar, sem tentar recriá-lo
+  field_manager {
+    force_conflicts = true
+  }
+
+  # Aguarda até que o campo do LoadBalancer seja preenchido com o IP
+  wait {
+    fields = {
+      "status.loadBalancer.ingress" = "*"
+    }
+  }
 }
 
 resource "kubernetes_manifest" "istio_gateway_certificate" {
@@ -52,5 +67,5 @@ resource "kubernetes_manifest" "istio_gateway_certificate" {
     }
   }
 
-  depends_on = [data.kubernetes_service.istio_gateway]
+  depends_on = [kubernetes_manifest.wait_for_istio_gateway]
 }
