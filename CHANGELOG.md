@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.2](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.1.1...v1.1.2) (2026-07-06)
+
+
+### 🔥 Bug Fixes
+
+* remove kiali and decouple gateway flow from lb ip ([e7a8981](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/e7a8981c7d564678bf47b6d31a60ef51c4c00cd2))
+* remove kiali and decouple gateway flow from lb ip ([b20168b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/b20168b2d705ac2f63993ad1e33fae487a314fc4))
+* tolerate missing istio gateway loadbalancer status ([e67f92f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/e67f92ff1006122b33aafa375651ffe780b042df))
+
+
+### ⚙️ Chores
+
+* trigger release ([c78f299](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/c78f299ffa18b90391ec16d85e86b9a4587842bb))
+* trigger release ([8bf5c6c](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/8bf5c6c83a46e3ecf4d630fe59cf1523cd0658fe))
+
 ## [1.1.1](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.1.0...v1.1.1) (2026-05-20)
 
 
