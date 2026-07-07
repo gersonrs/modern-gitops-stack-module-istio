@@ -22,3 +22,10 @@ terraform {
     }
   }
 }
+
+provider "kubernetes" {
+  host                   = var.cluster.host
+  client_certificate     = var.cluster.client_certificate
+  client_key             = var.cluster.client_key
+  cluster_ca_certificate = var.cluster.cluster_ca_certificate
+}
