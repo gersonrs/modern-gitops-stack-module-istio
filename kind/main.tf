@@ -23,29 +23,20 @@ module "istio" {
   dependency_ids = var.dependency_ids
 }
 
-resource "kubernetes_manifest" "wait_for_istio_gateway" {
+# Reads the Istio ingress gateway Service (created by ArgoCD when the gateway
+# Application syncs) to obtain its LoadBalancer IP. The IP is used to derive the
+# nip.io domain for the gateway TLS certificate. `depends_on` defers the read to
+# apply time, after the module has created the gateway Application.
+data "kubernetes_resource" "istio_gateway" {
+  api_version = "v1"
+  kind        = "Service"
+
+  metadata {
+    name      = "istio-gateway-istio"
+    namespace = "istio-ingress"
+  }
+
   depends_on = [module.istio]
-
-  manifest = {
-    apiVersion = "v1"
-    kind       = "Service"
-    metadata = {
-      name      = "istio-gateway-istio"
-      namespace = "istio-ingress"
-    }
-  }
-
-  # Força o Terraform a apenas ler o recurso existente e esperar, sem tentar recriá-lo
-  field_manager {
-    force_conflicts = true
-  }
-
-  # Aguarda até que o campo do LoadBalancer seja preenchido com o IP
-  wait {
-    fields = {
-      "status.loadBalancer.ingress" = "*"
-    }
-  }
 }
 
 resource "kubernetes_manifest" "istio_gateway_certificate" {
@@ -63,10 +54,11 @@ resource "kubernetes_manifest" "istio_gateway_certificate" {
         kind = "ClusterIssuer"
       }
       dnsNames = [
-        "*.${local.gateway_domain}"
+        "*.${local.gateway_domain}",
+        "*.${local.gateway_base}",
       ]
     }
   }
 
-  depends_on = [kubernetes_manifest.wait_for_istio_gateway]
+  depends_on = [data.kubernetes_resource.istio_gateway]
 }
