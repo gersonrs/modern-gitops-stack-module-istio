@@ -370,7 +370,16 @@ resource "argocd_application" "gateway" {
     delete = "15m"
   }
 
-  wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
+  # Do not block on the application's health. The Gateway's HTTPS listener
+  # references the `istio-gateway-tls` Secret, which is created by cert-manager
+  # only after the Gateway is synced and its LoadBalancer IP is known (see the
+  # `kind` submodule). Waiting for "Healthy" here would deadlock: the app stays
+  # Degraded ("secret istio-gateway-tls not found") until the certificate is
+  # created, but the certificate depends on this module completing first.
+  # The Gateway still becomes Programmed and gets its IP at sync time, which is
+  # what downstream resources actually need; self-heal reconciles it to Healthy
+  # once the certificate Secret exists.
+  wait = false
 
   spec {
     project = var.argocd_project == null ? argocd_project.this[0].metadata.0.name : var.argocd_project
