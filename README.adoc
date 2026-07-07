@@ -22,11 +22,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- [[provider_null]] <<provider_null,null>> (3.3.0)
-
 - [[provider_utils]] <<provider_utils,utils>> (2.6.0)
 
 - [[provider_argocd]] <<provider_argocd,argocd>> (7.15.3)
+
+- [[provider_null]] <<provider_null,null>> (3.3.0)
 
 === Resources
 
@@ -259,9 +259,9 @@ Description: Namespace of the Istio Gateway resource for use in HTTPRoute parent
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
+|[[provider_null]] <<provider_null,null>> |3.3.0
 |[[provider_utils]] <<provider_utils,utils>> |2.6.0
 |[[provider_argocd]] <<provider_argocd,argocd>> |7.15.3
-|[[provider_null]] <<provider_null,null>> |3.3.0
 |===
 
 = Resources
