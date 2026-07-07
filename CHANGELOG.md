@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.4.0...v1.5.0) (2026-07-07)
+
+
+### 🚀 New Features
+
+* try again ([aa535a6](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/aa535a6d00d729e80a139dd1efd4dfdf20dac930))
+
+
+### 🔥 Bug Fixes
+
+* break istio gateway tls bootstrap deadlock ([45030f9](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/45030f9f8fdc4d638f372e57dfcda89a509deea8))
+* break istio gateway tls bootstrap deadlock ([ff92281](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ff9228125d38543c70eba4620a0852902da32145))
+
 ## [1.4.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.3.0...v1.4.0) (2026-07-07)
 
 
