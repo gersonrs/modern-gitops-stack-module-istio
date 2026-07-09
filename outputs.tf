@@ -12,3 +12,7 @@ output "gateway_namespace" {
   description = "Namespace of the Istio Gateway resource for use in HTTPRoute parentRefs."
   value       = "istio-ingress"
 }
+output "argo_project_name" {
+  description = "Name of the ArgoCD project."
+  value       = var.argocd_project == null ? argocd_project.this[0].metadata.0.name : var.argocd_project
+}
