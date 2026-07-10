@@ -17,9 +17,15 @@ module "istio" {
   app_autosync           = var.app_autosync
   gateway                = true
 
-  helm_values = concat(local.helm_values, var.helm_values)
+  helm_values = var.helm_values
 
   dependency_ids = var.dependency_ids
+}
+
+resource "null_resource" "dependencies" {
+  triggers = {
+    istio = module.istio.id
+  }
 }
 
 data "utils_deep_merge_yaml" "values" {
@@ -39,13 +45,11 @@ data "kubernetes_resource" "istio_gateway" {
     namespace = "istio-ingress"
   }
 
-  depends_on = [module.istio]
+  depends_on = [null_resource.dependencies]
 }
 
 
 resource "argocd_application" "gateway_certificate" {
-  count = var.gateway ? 1 : 0
-
   metadata {
     name      = var.destination_cluster != "in-cluster" ? "istio-gateway-certificate-${var.destination_cluster}" : "istio-gateway-certificate"
     namespace = var.argocd_namespace
@@ -104,5 +108,9 @@ resource "argocd_application" "gateway_certificate" {
     }
   }
 
-  depends_on = [module.istio]
+  depends_on = [null_resource.dependencies]
+}
+
+resource "null_resource" "this" {
+  depends_on = [argocd_application.gateway_certificate]
 }
