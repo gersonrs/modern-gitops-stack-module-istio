@@ -5,7 +5,7 @@ output "id" {
 
 output "external_ip" {
   description = "External IP address of the Istio ingress gateway LoadBalancer service."
-  value       = try(local.gateway_ip, "127.0.0.1")
+  value       = local.gateway_ip
 }
 
 output "gateway_name" {
