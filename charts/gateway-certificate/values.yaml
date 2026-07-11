@@ -1,0 +1,7 @@
+gateway_certificate_config:
+  enabled: true
+  name: istio-gateway-tls
+  namespace: istio-ingress
+  secret_name: istio-gateway-tls
+  cluster_issuer: selfsigned-issuer
+  dns_names: []

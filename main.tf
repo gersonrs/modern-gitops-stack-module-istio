@@ -38,18 +38,64 @@ resource "argocd_project" "this" {
   }
 }
 
-resource "null_resource" "check_crd" {
-  depends_on = [resource.null_resource.dependencies]
-  provisioner "local-exec" {
-    command = <<EOT
-      if kubectl get crd gateways.gateway.networking.k8s.io &>/dev/null; then
-        echo "CRD já instalado."
-      else
-        echo "CRD não encontrado. Instalando..."
-        kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.0" | kubectl apply -f -
-      fi
-    EOT
+resource "argocd_application" "gateway_api_crds" {
+  metadata {
+    name      = var.destination_cluster != "in-cluster" ? "gateway-api-crds-${var.destination_cluster}" : "gateway-api-crds"
+    namespace = var.argocd_namespace
+    labels = merge({
+      "application" = "gateway-api-crds"
+      "cluster"     = var.destination_cluster
+    }, var.argocd_labels)
   }
+
+  timeouts {
+    create = "15m"
+    delete = "15m"
+  }
+
+  wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
+
+  spec {
+    project = var.argocd_project == null ? argocd_project.this[0].metadata.0.name : var.argocd_project
+
+    source {
+      repo_url        = "https://github.com/kubernetes-sigs/gateway-api"
+      path            = "config/crd"
+      target_revision = "v1.6.0"
+    }
+
+    destination {
+      name      = var.destination_cluster
+      namespace = var.namespace
+    }
+
+    sync_policy {
+      dynamic "automated" {
+        for_each = toset(var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? [] : [var.app_autosync])
+        content {
+          prune       = automated.value.prune
+          self_heal   = automated.value.self_heal
+          allow_empty = automated.value.allow_empty
+        }
+      }
+
+      retry {
+        backoff {
+          duration     = "20s"
+          max_duration = "2m"
+          factor       = "2"
+        }
+        limit = "5"
+      }
+
+      sync_options = [
+        "CreateNamespace=true",
+        "Replace=true",
+      ]
+    }
+  }
+
+  depends_on = [null_resource.dependencies]
 }
 
 resource "argocd_application" "base" {
@@ -94,6 +140,12 @@ resource "argocd_application" "base" {
     }
 
     sync_policy {
+      dynamic "managed_namespace_metadata" {
+        for_each = length(var.namespace_labels) > 0 ? [var.namespace_labels] : []
+        content {
+          labels = managed_namespace_metadata.value
+        }
+      }
       dynamic "automated" {
         for_each = toset(var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? [] : [var.app_autosync])
         content {
@@ -117,7 +169,7 @@ resource "argocd_application" "base" {
       ]
     }
   }
-  depends_on = [null_resource.check_crd]
+  depends_on = [argocd_application.gateway_api_crds]
 }
 
 resource "argocd_application" "istiod" {
@@ -129,6 +181,7 @@ resource "argocd_application" "istiod" {
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
   }
+
 
   timeouts {
     create = "15m"
@@ -308,6 +361,7 @@ resource "argocd_application" "ztunnel" {
 }
 
 resource "argocd_application" "gateway" {
+  count = var.gateway ? 1 : 0
   metadata {
     name      = var.destination_cluster != "in-cluster" ? "istio-ingressgateway-${var.destination_cluster}" : "istio-ingressgateway"
     namespace = var.argocd_namespace
@@ -322,14 +376,23 @@ resource "argocd_application" "gateway" {
     delete = "15m"
   }
 
-  wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
+  # Do not block on the application's health. The Gateway's HTTPS listener
+  # references the `istio-gateway-tls` Secret, which is created by cert-manager
+  # only after the Gateway is synced and its LoadBalancer IP is known (see the
+  # `kind` submodule). Waiting for "Healthy" here would deadlock: the app stays
+  # Degraded ("secret istio-gateway-tls not found") until the certificate is
+  # created, but the certificate depends on this module completing first.
+  # The Gateway still becomes Programmed and gets its IP at sync time, which is
+  # what downstream resources actually need; self-heal reconciles it to Healthy
+  # once the certificate Secret exists.
+  wait = false
 
   spec {
     project = var.argocd_project == null ? argocd_project.this[0].metadata.0.name : var.argocd_project
 
     source {
       repo_url        = var.project_source_repo
-      path            = "charts/istio-gateway"
+      path            = "charts/gateway"
       target_revision = var.target_revision
       helm {
         values = data.utils_deep_merge_yaml.values.output
@@ -372,18 +435,5 @@ resource "argocd_application" "gateway" {
 }
 
 resource "null_resource" "this" {
-  depends_on = [
-    resource.argocd_application.gateway,
-  ]
-}
-
-data "kubernetes_service" "istio" {
-  metadata {
-    name      = "istio-ingressgateway"
-    namespace = var.namespace
-  }
-
-  depends_on = [
-    resource.argocd_application.gateway,
-  ]
+  depends_on = [argocd_application.gateway]
 }
