@@ -1,0 +1,5 @@
+apiVersion: v2
+description: |
+  This chart installs the Kubernetes Gateway API resources for Istio
+name: gateway
+version: "0"
