@@ -26,8 +26,9 @@ variable "cluster_name" {
 }
 
 variable "base_domain" {
-  description = "Base domain of the cluster. Value used for the ingress' URL of the application."
+  description = "Base domain of the cluster. Value used for the Gateway hostname wildcard. If empty, '*' is used as the hostname."
   type        = string
+  default     = ""
 }
 
 variable "subdomain" {
@@ -58,7 +59,7 @@ variable "destination_cluster" {
 variable "target_revision" {
   description = "Override of target revision of the application chart."
   type        = string
-  default     = "v1.0.0" # x-release-please-version
+  default     = "v1.6.0" # x-release-please-version
 }
 
 variable "cluster_issuer" {
@@ -99,6 +100,20 @@ variable "dependency_ids" {
   default     = {}
 }
 
+variable "namespace_labels" {
+  description = "Labels to apply to the destination namespace managed by Argo CD (requires CreateNamespace=true)."
+  type        = map(string)
+  default = {
+    "istio.io/dataplane-mode" = "ambient"
+  }
+}
+
 #######################
 ## Module variables
 #######################
+
+variable "gateway" {
+  description = "Enable Gateway in the istio module."
+  type        = bool
+  default     = false
+}
