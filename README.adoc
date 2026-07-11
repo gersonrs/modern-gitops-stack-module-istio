@@ -125,7 +125,7 @@ Description: Override of target revision of the application chart.
 
 Type: `string`
 
-Default: `"v1.6.0"`
+Default: `"v1.7.0"`
 
 ==== [[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
 
@@ -183,6 +183,20 @@ Type: `map(string)`
 
 Default: `{}`
 
+==== [[input_namespace_labels]] <<input_namespace_labels,namespace_labels>>
+
+Description: Labels to apply to the destination namespace managed by Argo CD (requires CreateNamespace=true).
+
+Type: `map(string)`
+
+Default:
+[source,json]
+----
+{
+  "istio.io/dataplane-mode": "ambient"
+}
+----
+
 ==== [[input_gateway]] <<input_gateway,gateway>>
 
 Description: Enable Gateway in the istio module.
@@ -234,9 +248,9 @@ Description: Name of the ArgoCD project.
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_null]] <<provider_null,null>> |3.3.0
 |[[provider_utils]] <<provider_utils,utils>> |2.6.0
 |[[provider_argocd]] <<provider_argocd,argocd>> |7.15.3
+|[[provider_null]] <<provider_null,null>> |3.3.0
 |===
 
 = Resources
@@ -318,7 +332,7 @@ Description: Name of the ArgoCD project.
 |[[input_target_revision]] <<input_target_revision,target_revision>>
 |Override of target revision of the application chart.
 |`string`
-|`"v1.6.0"`
+|`"v1.7.0"`
 |no
 
 |[[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
@@ -369,6 +383,20 @@ object({
 |IDs of the other modules on which this module depends on.
 |`map(string)`
 |`{}`
+|no
+
+|[[input_namespace_labels]] <<input_namespace_labels,namespace_labels>>
+|Labels to apply to the destination namespace managed by Argo CD (requires CreateNamespace=true).
+|`map(string)`
+|
+
+[source]
+----
+{
+  "istio.io/dataplane-mode": "ambient"
+}
+----
+
 |no
 
 |[[input_gateway]] <<input_gateway,gateway>>
