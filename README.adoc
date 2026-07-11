@@ -10,8 +10,6 @@ The following requirements are needed by this module:
 
 - [[requirement_argocd]] <<requirement_argocd,argocd>> (>= 7)
 
-- [[requirement_kubernetes]] <<requirement_kubernetes,kubernetes>> (~> 2)
-
 - [[requirement_null]] <<requirement_null,null>> (>= 3)
 
 - [[requirement_random]] <<requirement_random,random>> (>= 3)
@@ -22,11 +20,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
+- [[provider_null]] <<provider_null,null>> (3.3.0)
+
 - [[provider_utils]] <<provider_utils,utils>> (2.6.0)
 
 - [[provider_argocd]] <<provider_argocd,argocd>> (7.15.3)
-
-- [[provider_null]] <<provider_null,null>> (3.3.0)
 
 === Resources
 
@@ -127,7 +125,7 @@ Description: Override of target revision of the application chart.
 
 Type: `string`
 
-Default: `"v1.5.0"`
+Default: `"v1.6.0"`
 
 ==== [[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
 
@@ -193,32 +191,6 @@ Type: `bool`
 
 Default: `false`
 
-==== [[input_cluster]] <<input_cluster,cluster>>
-
-Description: Kubeconfig blocks to configure Terraform providers.
-
-Type:
-[source,hcl]
-----
-object({
-    host                   = string
-    client_certificate     = string
-    client_key             = string
-    cluster_ca_certificate = string
-  })
-----
-
-Default:
-[source,json]
-----
-{
-  "client_certificate": null,
-  "client_key": null,
-  "cluster_ca_certificate": null,
-  "host": null
-}
-----
-
 === Outputs
 
 The following outputs are exported:
@@ -234,6 +206,10 @@ Description: Name of the Istio Gateway resource for use in HTTPRoute parentRefs.
 ==== [[output_gateway_namespace]] <<output_gateway_namespace,gateway_namespace>>
 
 Description: Namespace of the Istio Gateway resource for use in HTTPRoute parentRefs.
+
+==== [[output_argo_project_name]] <<output_argo_project_name,argo_project_name>>
+
+Description: Name of the ArgoCD project.
 // END_TF_DOCS
 
 === Reference in table format 
@@ -248,7 +224,6 @@ Description: Namespace of the Istio Gateway resource for use in HTTPRoute parent
 |===
 |Name |Version
 |[[requirement_argocd]] <<requirement_argocd,argocd>> |>= 7
-|[[requirement_kubernetes]] <<requirement_kubernetes,kubernetes>> |~> 2
 |[[requirement_null]] <<requirement_null,null>> |>= 3
 |[[requirement_random]] <<requirement_random,random>> |>= 3
 |[[requirement_utils]] <<requirement_utils,utils>> |>= 1
@@ -259,9 +234,9 @@ Description: Namespace of the Istio Gateway resource for use in HTTPRoute parent
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_null]] <<provider_null,null>> |3.3.0
 |[[provider_utils]] <<provider_utils,utils>> |2.6.0
 |[[provider_argocd]] <<provider_argocd,argocd>> |7.15.3
+|[[provider_null]] <<provider_null,null>> |3.3.0
 |===
 
 = Resources
@@ -343,7 +318,7 @@ Description: Namespace of the Istio Gateway resource for use in HTTPRoute parent
 |[[input_target_revision]] <<input_target_revision,target_revision>>
 |Override of target revision of the application chart.
 |`string`
-|`"v1.5.0"`
+|`"v1.6.0"`
 |no
 
 |[[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
@@ -402,34 +377,6 @@ object({
 |`false`
 |no
 
-|[[input_cluster]] <<input_cluster,cluster>>
-|Kubeconfig blocks to configure Terraform providers.
-|
-
-[source]
-----
-object({
-    host                   = string
-    client_certificate     = string
-    client_key             = string
-    cluster_ca_certificate = string
-  })
-----
-
-|
-
-[source]
-----
-{
-  "client_certificate": null,
-  "client_key": null,
-  "cluster_ca_certificate": null,
-  "host": null
-}
-----
-
-|no
-
 |===
 
 = Outputs
@@ -440,6 +387,7 @@ object({
 |[[output_id]] <<output_id,id>> |ID to pass other modules in order to refer to this module as a dependency.
 |[[output_gateway_name]] <<output_gateway_name,gateway_name>> |Name of the Istio Gateway resource for use in HTTPRoute parentRefs.
 |[[output_gateway_namespace]] <<output_gateway_namespace,gateway_namespace>> |Namespace of the Istio Gateway resource for use in HTTPRoute parentRefs.
+|[[output_argo_project_name]] <<output_argo_project_name,argo_project_name>> |Name of the ArgoCD project.
 |===
 // END_TF_TABLES
 ====
