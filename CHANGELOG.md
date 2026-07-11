@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.6.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.5.0...v1.6.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* adjust code ([a256ab0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a256ab0f894be1aff400468da7ec142c768f4aeb))
+* adjust code ([bc186b0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/bc186b0aaac238ec4a265ba0cab7daa912d16131))
+* adjust project ([77b8c3b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/77b8c3bb9a1b4f54e9626b023a7b7b0cf958f34f))
+
+
+### 🔥 Bug Fixes
+
+* manage gateway certificate via argocd and break bootstrap cycle ([595b7b0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/595b7b05662623f2294b0ca393063bca4afa23c1))
+* manage gateway certificate via ArgoCD and break bootstrap cycle ([0986993](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/0986993b62fc44b4908af3ea93ecffa1644617af))
+
 ## [1.5.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.4.0...v1.5.0) (2026-07-07)
 
 
