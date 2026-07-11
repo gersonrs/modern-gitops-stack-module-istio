@@ -16,11 +16,20 @@ module "istio" {
   enable_service_monitor = var.enable_service_monitor
   app_autosync           = var.app_autosync
   gateway                = true
-  cluster                = var.cluster
 
-  helm_values = concat(local.helm_values, var.helm_values)
+  helm_values = var.helm_values
 
   dependency_ids = var.dependency_ids
+}
+
+resource "null_resource" "dependencies" {
+  triggers = {
+    istio = module.istio.id
+  }
+}
+
+data "utils_deep_merge_yaml" "values" {
+  input = [for i in concat(local.helm_values, var.helm_values) : yamlencode(i)]
 }
 
 # Reads the Istio ingress gateway Service (created by ArgoCD when the gateway
@@ -36,29 +45,72 @@ data "kubernetes_resource" "istio_gateway" {
     namespace = "istio-ingress"
   }
 
-  depends_on = [module.istio]
+  depends_on = [null_resource.dependencies]
 }
 
-resource "kubernetes_manifest" "istio_gateway_certificate" {
-  manifest = {
-    apiVersion = "cert-manager.io/v1"
-    kind       = "Certificate"
-    metadata = {
-      name      = "istio-gateway-tls"
+
+resource "argocd_application" "gateway_certificate" {
+  metadata {
+    name      = var.destination_cluster != "in-cluster" ? "istio-gateway-certificate-${var.destination_cluster}" : "istio-gateway-certificate"
+    namespace = var.argocd_namespace
+    labels = merge({
+      "application" = "istio-gateway-certificate"
+      "cluster"     = var.destination_cluster
+    }, var.argocd_labels)
+  }
+
+  timeouts {
+    create = "5m"
+    delete = "5m"
+  }
+
+  wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
+
+  spec {
+    project = var.argocd_project == null ? module.istio.argocd_project_name : var.argocd_project
+
+    source {
+      repo_url        = var.project_source_repo
+      path            = "charts/gateway-certificate"
+      target_revision = var.target_revision
+      helm {
+        values = data.utils_deep_merge_yaml.values.output
+      }
+    }
+
+    destination {
+      name      = var.destination_cluster
       namespace = "istio-ingress"
     }
-    spec = {
-      secretName = "istio-gateway-tls"
-      issuerRef = {
-        name = var.cluster_issuer
-        kind = "ClusterIssuer"
+
+    sync_policy {
+      dynamic "automated" {
+        for_each = toset(var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? [] : [var.app_autosync])
+        content {
+          prune       = automated.value.prune
+          self_heal   = automated.value.self_heal
+          allow_empty = automated.value.allow_empty
+        }
       }
-      dnsNames = [
-        "*.${local.gateway_domain}",
-        "*.${local.gateway_base}",
+
+      retry {
+        backoff {
+          duration     = "20s"
+          max_duration = "2m"
+          factor       = "2"
+        }
+        limit = "5"
+      }
+
+      sync_options = [
+        "CreateNamespace=true",
       ]
     }
   }
 
-  depends_on = [data.kubernetes_resource.istio_gateway]
+  depends_on = [null_resource.dependencies]
+}
+
+resource "null_resource" "this" {
+  depends_on = [argocd_application.gateway_certificate]
 }

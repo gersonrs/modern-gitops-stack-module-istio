@@ -1,13 +1,16 @@
 locals {
+  gateway_ip   = data.kubernetes_resource.istio_gateway.object.status.loadBalancer.ingress[0].ip
+  gateway_name = format("%s.nip.io", replace(local.gateway_ip, ".", "-"))
+
   helm_values = [{
-    istiod = {}
+    gateway_certificate_config = {
+      name           = "istio-gateway-tls"
+      namespace      = "istio-ingress"
+      cluster_issuer = var.cluster_issuer
+      dns_names = [
+        "*.${local.gateway_name}",
+        "*.${var.subdomain}.${local.gateway_name}",
+      ]
+    }
   }]
-
-  gateway_ip = data.kubernetes_resource.istio_gateway.object.status.loadBalancer.ingress[0].ip
-
-  # Base domain: uses the provided base_domain, otherwise derives a nip.io domain from the gateway LoadBalancer IP.
-  gateway_base = var.base_domain != "" ? var.base_domain : format("%s.nip.io", replace(local.gateway_ip, ".", "-"))
-
-  # Full domain used by the services' HTTPRoutes, e.g. "apps.172-18-0-100.nip.io".
-  gateway_domain = var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}.${local.gateway_base}" : local.gateway_base
 }

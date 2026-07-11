@@ -61,7 +61,7 @@ resource "argocd_application" "gateway_api_crds" {
     source {
       repo_url        = "https://github.com/kubernetes-sigs/gateway-api"
       path            = "config/crd"
-      target_revision = "v1.4.0"
+      target_revision = "v1.6.0"
     }
 
     destination {

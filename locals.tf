@@ -4,7 +4,11 @@ locals {
       profile = "ambient"
       env = {
         PILOT_JWT_PUB_KEY_REFRESH_INTERVAL = "1m"
-        ENABLE_DEBUG_ON_HTTP               = false
+        # Required so Kiali can query istiod's /debug/registryz and /debug/syncz
+        # endpoints. Without this, Kiali cannot confirm HTTPRoute backendRefs
+        # against Istio's service registry and reports false-positive KIA1402
+        # errors ("Reference doesn't have a valid service").
+        ENABLE_DEBUG_ON_HTTP = true
       }
 
       meshConfig = {

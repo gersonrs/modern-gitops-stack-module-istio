@@ -1,11 +1,11 @@
 output "id" {
-  description = "ID to pass other modules in order to refer to this module as a dependency. It takes the ID that comes from the main module and passes it along to the code that called this variant in the first place."
-  value       = module.istio.id
+  description = "ID to pass other modules in order to refer to this module as a dependency."
+  value       = resource.null_resource.this.id
 }
 
 output "external_ip" {
   description = "External IP address of the Istio ingress gateway LoadBalancer service."
-  value       = try(local.gateway_ip, "127.0.0.1")
+  value       = local.gateway_ip
 }
 
 output "gateway_name" {
