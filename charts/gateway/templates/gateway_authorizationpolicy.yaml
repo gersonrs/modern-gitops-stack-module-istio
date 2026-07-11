@@ -1,0 +1,13 @@
+{{- $gateway_config := .Values.gateway_config | default dict }}
+# Allow all traffic to the istio gateway
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ $gateway_config.name | default "istio-gateway" }}
+spec:
+  action: ALLOW
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: {{ $gateway_config.name | default "istio-gateway" }}
+  rules:
+  - {}

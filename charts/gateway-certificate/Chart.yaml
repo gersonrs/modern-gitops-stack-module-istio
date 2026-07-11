@@ -1,0 +1,5 @@
+apiVersion: v2
+name: gateway-certificate
+description: Cert-manager Certificate for Istio gateway TLS secret
+type: application
+version: 0.1.0
