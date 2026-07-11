@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.7.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.6.0...v1.7.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* add namespace_labels variable to all modules ([57781f9](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/57781f977b751f497d7c35ddc324489ce5f2472f))
+* add namespace_labels variable to all modules ([8023b1d](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/8023b1d13ce9630f64fa20f3ba92ad27ad32e199))
+* **chart:** minor update of dependencies on istio-base chart ([95f8470](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/95f847017ff0102f79d24b8c473d95fa40b4b30a))
+* **chart:** minor update of dependencies on istio-cni chart ([ffbe32b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ffbe32b3d5fa79a34b93483012880947a27211d0))
+* **chart:** minor update of dependencies on istio-istiod chart ([61e89ca](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/61e89ca7e80d9da6fa821788d789098135430e8c))
+* **chart:** minor update of dependencies on istio-ztunnel chart ([920de0f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/920de0fdd9ac11a354c9dc06296593413bb11ee9))
+* **chart:** patch update of dependencies on istio-base chart ([cfe0b0e](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/cfe0b0ee1be37d44b8ad1247e8745f0be12caa41))
+* **chart:** patch update of dependencies on istio-cni chart ([be167c1](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/be167c1a945d58cbbcfdf27f9f4927502dbc2fd1))
+* **chart:** patch update of dependencies on istio-istiod chart ([9d96363](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/9d96363fa28402fa3a7cca87d0a6f2aed30a61a2))
+* **chart:** patch update of dependencies on istio-ztunnel chart ([2a3d1ac](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2a3d1ac72e9de405aee0213b745334bbc31c82c7))
+
 ## [1.6.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.5.0...v1.6.0) (2026-07-11)
 
 
