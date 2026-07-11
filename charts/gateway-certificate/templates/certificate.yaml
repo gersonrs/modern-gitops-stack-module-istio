@@ -1,0 +1,17 @@
+{{- $cfg := .Values.gateway_certificate_config | default dict -}}
+{{- if and ($cfg.enabled | default true) (gt (len ($cfg.dns_names | default (list))) 0) -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $cfg.name | default "istio-gateway-tls" }}
+  namespace: {{ $cfg.namespace | default .Release.Namespace }}
+spec:
+  secretName: {{ $cfg.secret_name | default "istio-gateway-tls" }}
+  issuerRef:
+    name: {{ $cfg.cluster_issuer | default "selfsigned-issuer" }}
+    kind: ClusterIssuer
+  dnsNames:
+{{- range $cfg.dns_names }}
+    - {{ . | quote }}
+{{- end }}
+{{- end }}
