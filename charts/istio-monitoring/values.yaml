@@ -1,0 +1,3 @@
+istio_monitoring:
+  enabled: true
+  namespace: istio-system

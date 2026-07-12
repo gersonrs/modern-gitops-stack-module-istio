@@ -1,0 +1,5 @@
+apiVersion: v2
+name: istio-monitoring
+description: PodMonitor resources so Prometheus Operator scrapes Istio control plane and ambient dataplane metrics
+type: application
+version: 0.1.0
