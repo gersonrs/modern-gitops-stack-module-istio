@@ -20,11 +20,11 @@ The following requirements are needed by this module:
 
 The following providers are used by this module:
 
-- [[provider_null]] <<provider_null,null>> (3.3.0)
-
 - [[provider_utils]] <<provider_utils,utils>> (2.6.0)
 
 - [[provider_argocd]] <<provider_argocd,argocd>> (7.15.3)
+
+- [[provider_null]] <<provider_null,null>> (3.3.0)
 
 === Resources
 
@@ -125,7 +125,7 @@ Description: Override of target revision of the application chart.
 
 Type: `string`
 
-Default: `"v1.7.0"`
+Default: `"v1.8.0"`
 
 ==== [[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
 
@@ -248,9 +248,9 @@ Description: Name of the ArgoCD project.
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
+|[[provider_null]] <<provider_null,null>> |3.3.0
 |[[provider_utils]] <<provider_utils,utils>> |2.6.0
 |[[provider_argocd]] <<provider_argocd,argocd>> |7.15.3
-|[[provider_null]] <<provider_null,null>> |3.3.0
 |===
 
 = Resources
@@ -332,7 +332,7 @@ Description: Name of the ArgoCD project.
 |[[input_target_revision]] <<input_target_revision,target_revision>>
 |Override of target revision of the application chart.
 |`string`
-|`"v1.7.0"`
+|`"v1.8.0"`
 |no
 
 |[[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
