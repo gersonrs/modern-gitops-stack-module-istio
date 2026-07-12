@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.7.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.6.0...v1.7.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* add namespace_labels variable to all modules ([57781f9](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/57781f977b751f497d7c35ddc324489ce5f2472f))
+* add namespace_labels variable to all modules ([8023b1d](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/8023b1d13ce9630f64fa20f3ba92ad27ad32e199))
+* **chart:** minor update of dependencies on istio-base chart ([95f8470](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/95f847017ff0102f79d24b8c473d95fa40b4b30a))
+* **chart:** minor update of dependencies on istio-cni chart ([ffbe32b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ffbe32b3d5fa79a34b93483012880947a27211d0))
+* **chart:** minor update of dependencies on istio-istiod chart ([61e89ca](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/61e89ca7e80d9da6fa821788d789098135430e8c))
+* **chart:** minor update of dependencies on istio-ztunnel chart ([920de0f](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/920de0fdd9ac11a354c9dc06296593413bb11ee9))
+* **chart:** patch update of dependencies on istio-base chart ([cfe0b0e](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/cfe0b0ee1be37d44b8ad1247e8745f0be12caa41))
+* **chart:** patch update of dependencies on istio-cni chart ([be167c1](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/be167c1a945d58cbbcfdf27f9f4927502dbc2fd1))
+* **chart:** patch update of dependencies on istio-istiod chart ([9d96363](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/9d96363fa28402fa3a7cca87d0a6f2aed30a61a2))
+* **chart:** patch update of dependencies on istio-ztunnel chart ([2a3d1ac](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2a3d1ac72e9de405aee0213b745334bbc31c82c7))
+
+## [1.6.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.5.0...v1.6.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* adjust code ([a256ab0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a256ab0f894be1aff400468da7ec142c768f4aeb))
+* adjust code ([bc186b0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/bc186b0aaac238ec4a265ba0cab7daa912d16131))
+* adjust project ([77b8c3b](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/77b8c3bb9a1b4f54e9626b023a7b7b0cf958f34f))
+
+
+### 🔥 Bug Fixes
+
+* manage gateway certificate via argocd and break bootstrap cycle ([595b7b0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/595b7b05662623f2294b0ca393063bca4afa23c1))
+* manage gateway certificate via ArgoCD and break bootstrap cycle ([0986993](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/0986993b62fc44b4908af3ea93ecffa1644617af))
+
+## [1.5.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.4.0...v1.5.0) (2026-07-07)
+
+
+### 🚀 New Features
+
+* try again ([aa535a6](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/aa535a6d00d729e80a139dd1efd4dfdf20dac930))
+
+
+### 🔥 Bug Fixes
+
+* break istio gateway tls bootstrap deadlock ([45030f9](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/45030f9f8fdc4d638f372e57dfcda89a509deea8))
+* break istio gateway tls bootstrap deadlock ([ff92281](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/ff9228125d38543c70eba4620a0852902da32145))
+
+## [1.4.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.3.0...v1.4.0) (2026-07-07)
+
+
+### 🚀 New Features
+
+* adjust code ([667c160](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/667c16022d220e7d1565063add47c853764f7026))
+
+
+### 🔥 Bug Fixes
+
+* fix apply error ([719d537](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/719d537eba5c5f6d77468d4fdb44811590461e80))
+
 ## [1.3.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.2.0...v1.3.0) (2026-07-06)
 
 

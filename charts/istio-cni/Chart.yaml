@@ -6,4 +6,4 @@ dependencies:
 description: |
   This chart installs istio
 name: istio-cni
-version: "0"
+version: 0
