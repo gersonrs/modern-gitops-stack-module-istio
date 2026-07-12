@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.7.0...v1.8.0) (2026-07-12)
+
+
+### 🚀 New Features
+
+* adjus code ([05bbc08](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/05bbc08d0a9c3d1a00d54024a005a3cff86081fa))
+* adjus code ([a9eb510](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a9eb5100932b79501ccadef4f0c106706bdce55c))
+* adjus code ([f893642](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/f8936422207dfa227e9c8dc5ec891da3724429ff))
+* adjus code ([2760c49](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/2760c49f471b5412df89975470b8d9a2b997ce46))
+* update charts ([3b2ded3](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/3b2ded3540a6d5b7a3761fffea91f5254c88b77c))
+* update charts ([3d8cfc0](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/3d8cfc05ede5ecf375af9ad99253deb00f8dd39d))
+
 ## [1.7.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.6.0...v1.7.0) (2026-07-11)
 
 
