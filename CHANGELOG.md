@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.8.0...v1.9.0) (2026-07-12)
+
+
+### 🚀 New Features
+
+* adjust code ([8439474](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/84394746d19354ec4ce67ad2a4fe8782cf6d574d))
+* adjust code ([a6719c3](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a6719c3fa546c7e723ef9e6c8a9b76376191d191))
+
 ## [1.8.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.7.0...v1.8.0) (2026-07-12)
 
 
