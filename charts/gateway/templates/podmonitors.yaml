@@ -1,5 +1,5 @@
 {{- $cfg := .Values.istio_monitoring | default dict -}}
-{{- if $cfg.enabled | default true }}
+{{- if $cfg.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
