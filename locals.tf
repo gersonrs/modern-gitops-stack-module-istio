@@ -57,5 +57,9 @@ locals {
       name           = "istio-gateway"
       cluster_issuer = var.cluster_issuer
     }
+    istio_monitoring = {
+      enabled   = var.enable_service_monitor
+      namespace = "istio-system"
+    }
   }]
 }

@@ -1,0 +1,20 @@
+{{- $cfg := .Values.istio_monitoring | default dict -}}
+{{- if $cfg.enabled | default true }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: istiod
+  namespace: {{ $cfg.namespace | default "istio-system" }}
+spec:
+  selector:
+    matchLabels:
+      app: istiod
+  namespaceSelector:
+    matchNames:
+      - {{ $cfg.namespace | default "istio-system" }}
+  podMetricsEndpoints:
+    - port: http-monitoring
+      path: /metrics
+      interval: 30s
+{{- end }}
