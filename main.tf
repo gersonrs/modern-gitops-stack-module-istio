@@ -428,6 +428,10 @@ resource "argocd_application" "gateway" {
   ]
 }
 
+
+
 resource "null_resource" "this" {
-  depends_on = [argocd_application.gateway]
+  depends_on = [
+    argocd_application.gateway,
+  ]
 }
