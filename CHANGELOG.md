@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.10.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.9.0...v1.10.0) (2026-07-15)
+
+
+### 🚀 New Features
+
+* add PodMonitor resources for istiod, ztunnel and gateway ([1280921](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/1280921737b02797dc36057298d779439d2496d2))
+* add PodMonitor resources for istiod, ztunnel and gateway ([f465ca8](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/f465ca8fde6268fa81ca6483a5e7885eb9eab950))
+* adjust cod ([35732aa](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/35732aa708a578ced93d0a67d9fb683e95ceca85))
+* adjust code ([a6330c1](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/a6330c19a098f5b5fa12bf9f31b4ba785a8e3484))
+* adjust code ([e9e76dc](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/e9e76dc531e1f10a1ab639bee0f147d86a3c4bbc))
+* delete old charts ([bcdb928](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/bcdb9281c8932c7046998bac2eced742ea83a6b8))
+* try new config ([efc70ff](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/efc70ff9a2ba4f43e6e4f3e9b2ad8441fe2b9590))
+
 ## [1.9.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.8.0...v1.9.0) (2026-07-12)
 
 
