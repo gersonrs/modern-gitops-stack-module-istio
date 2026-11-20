@@ -2,8 +2,8 @@ apiVersion: v2
 dependencies:
   - name: istiod
     repository: https://istio-release.storage.googleapis.com/charts
-    version: "*.*.*"
+    version: "1.30.8"
 description: |
   This chart installs istio
 name: istio-istiod
-version: 0
+version: "0"
