@@ -2,8 +2,8 @@ apiVersion: v2
 dependencies:
   - name: base
     repository: https://istio-release.storage.googleapis.com/charts
-    version: "*.*.*"
+    version: "1.30.8"
 description: |
   This chart installs istio
 name: istio-base
-version: 0
+version: "0"
