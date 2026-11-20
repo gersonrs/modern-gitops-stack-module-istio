@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.10.0...v2.0.0) (2026-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* provider major bumps and a stricter Terraform baseline; consumers must run `terraform init -upgrade`.
+
+### 🚀 New Features
+
+* upgrade charts, providers and Terraform baseline ([#45](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/45)) ([6dd9e6a](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/6dd9e6a40cd7dde32168350780f435e8191c8f8f))
+
 ## [1.10.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.9.0...v1.10.0) (2026-07-15)
 
 
