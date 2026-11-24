@@ -1,7 +1,64 @@
 = modern-gitops-stack-module-istio
 // Document attributes to replace along the document
+:base-chart-version: 1.30.8
+:cni-chart-version: 1.30.8
+:istiod-chart-version: 1.30.8
+:ztunnel-chart-version: 1.30.8
+:original-repo-url: https://github.com/istio/istio
 
-kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.1" -o charts/crds/
+A https://modern-gitops-stack.io[Modern GitOps Stack] module to deploy Istio in ambient mode, which provides the gateway, mTLS and traffic management for the whole stack.
+
+The charts used by this module are shipped in this repository as well, in order to avoid any unwanted behaviors caused by unsupported versions.
+
+[cols="1,1,1",options="autowidth,header"]
+|===
+|Current Chart Version |Original Repository |Default Values
+|*1.30.8* |https://github.com/istio/istio/tree/main/manifests/charts/base[base] |https://artifacthub.io/packages/helm/base/base/1.30.8?modal=values[`values.yaml`]
+|*1.30.8* |https://github.com/istio/istio/tree/main/manifests/charts/istio-cni[cni] |https://artifacthub.io/packages/helm/cni/cni/1.30.8?modal=values[`values.yaml`]
+|*1.30.8* |https://github.com/istio/istio/tree/main/manifests/charts/istiod[istiod] |https://artifacthub.io/packages/helm/istiod/istiod/1.30.8?modal=values[`values.yaml`]
+|*1.30.8* |https://github.com/istio/istio/tree/main/manifests/charts/ztunnel[ztunnel] |https://artifacthub.io/packages/helm/ztunnel/ztunnel/1.30.8?modal=values[`values.yaml`]
+|===
+
+== Usage
+
+This module can be declared by adding the following block to your Terraform configuration:
+
+[source,terraform]
+----
+module "istio" {
+  source = "git::https://github.com/GersonRS/modern-gitops-stack-module-istio.git?ref=<RELEASE>"
+
+  cluster_name   = local.cluster_name
+  base_domain    = local.base_domain
+  subdomain      = local.subdomain
+  cluster_issuer = local.cluster_issuer
+  app_autosync   = local.app_autosync
+
+  dependency_ids = {
+    argocd         = module.argocd.id
+    cert-manager   = module.cert-manager.id
+    crds_bootstrap = module.crds_bootstrap.id
+  }
+}
+----
+
+The application is deployed to the `istio-system` namespace.
+
+== Technical Reference
+
+=== Dependencies
+
+==== `module.argocd.id`
+
+Argo CD applies the application.
+
+==== `module.cert-manager.id`
+
+The gateway certificate is issued by cert-manager.
+
+==== `module.crds_bootstrap.id`
+
+Istio ships ServiceMonitors, which need the Prometheus Operator CRDs.
 
 // BEGIN_TF_DOCS
 === Requirements
