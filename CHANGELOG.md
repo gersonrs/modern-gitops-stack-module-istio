@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v2.0.0...v2.0.1) (2026-11-24)
+
+
+### 📚 Documentation
+
+* add usage and dependencies to the module documentation ([#47](https://github.com/gersonrs/modern-gitops-stack-module-istio/issues/47)) ([28dc645](https://github.com/gersonrs/modern-gitops-stack-module-istio/commit/28dc645c2eb0184a51202909a66aba4ca0ac2543))
+
 ## [2.0.0](https://github.com/gersonrs/modern-gitops-stack-module-istio/compare/v1.10.0...v2.0.0) (2026-11-20)
 
 
